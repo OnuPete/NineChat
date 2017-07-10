@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-mongoose.connect('mongodb://catlover:ilovetesting@ds151222.mlab.com:51222/ninechat');
+mongoose.connect('mongodb://sidehustle:codesmith15@ds151752.mlab.com:51752/sidehustle');
 mongoose.connection.once('open', () => {
   console.log('Connected with MongoDB ORM - mongodb-orm');
 });
@@ -13,4 +13,4 @@ let messagesSchema = mongoose.Schema({
 });
 
 messages = mongoose.model('Messages', messagesSchema)
-module.exports = messages 
+module.exports = messages

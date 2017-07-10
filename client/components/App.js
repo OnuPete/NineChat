@@ -6,7 +6,7 @@ import Bottombar from './bottombar';
 import Userlist from './user-list.jsx';
 import UserProfile from './user-profile.jsx';
 
-const socket = new WebSocket('ws://ec2-34-212-61-95.us-west-2.compute.amazonaws.com:3000/');
+// const socket = new WebSocket('ws://ec2-34-212-61-95.us-west-2.compute.amazonaws.com:3000/');
 
 class App extends Component {
   constructor(props) {
@@ -93,6 +93,12 @@ class App extends Component {
   handleChange(event){
     this.setState({text: event.target.value});
   }
+
+  componentDidMount () {
+    const HOST = location.origin.replace(/^http/, 'ws')
+    this.ws = new WebSocket(HOST);
+  }
+  
   render() {
     const friendsList = this.state.friendsList.slice('');
     const list = this.state.friendsList.map((friend, i) => (
