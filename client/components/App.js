@@ -13,31 +13,35 @@ class App extends Component {
     super(props);
     this.state = this.getInitialState()
   }
+
   componentDidMount(){
     // before executing the set state below, componentDidMount needs to reach out to
     // server via our websocket and pull down the list of messages between user and user[0].
-
+    const HOST = location.origin.replace(/^http/, 'ws')
+    this.ws = new WebSocket(HOST);
     console.log('did mount');
-    return socket.onopen = (event) =>{
-      return this.updateMessages();
+    const thisApp = this;
+    console.log(this);
+    this.ws.onopen = (event) => {
+      thisApp.updateMessages();
     }
   }
 
   updateMessages() {
-      const currchat = this.state.friendsList[0];
-      socket.onmessage = (event) =>{
-        console.log(event);
-        let msgs = JSON.parse(event.data);
-        msgs = Array.isArray(msgs) ? msgs.reverse() : msgs;
-        const oldmsgs = this.state.messages.slice();
-        msgs = oldmsgs.concat(msgs);
-        document.cookie = "username=" + this.state.me.username;
-        document.cookie = "chatBro=" + currchat.username;
-        this.setState({
-          currentChat: currchat,
-          messages: msgs
-        });
-      }
+    const currchat = this.state.friendsList[0];
+    this.ws.onmessage = (event) =>{
+      console.log(event);
+      let msgs = JSON.parse(event.data);
+      msgs = Array.isArray(msgs) ? msgs.reverse() : msgs;
+      const oldmsgs = this.state.messages.slice();
+      msgs = oldmsgs.concat(msgs);
+      document.cookie = "username=" + this.state.me.username;
+      document.cookie = "chatBro=" + currchat.username;
+      this.setState({
+        currentChat: currchat,
+        messages: msgs
+      });
+    }
   }
 
   getInitialState() {
@@ -45,10 +49,10 @@ class App extends Component {
     //connect ajax to this?
       return {
         messages: [],
-        friendsList: [{username: 'JanelleCS', name: 'Janelle', photo: 'test'},{username: 'JeffreyCS', name:'Heffe', photo: 'test.jpg'}],
+        friendsList: [{username: 'JanelleCS', name: 'Janelle', photo: 'http://images.wisegeek.com/potatoes-against-white-background.jpg'},{username: 'JeffreyCS', name:'Heffe', photo: 'http://www.hdwallpapers.in/walls/purple_flower_4k-wide.jpg'}],
         currentChat: {username: '', name:'', photo: ''},
         text: '',
-        me: {username: 'GarrettCS', name:'Garrett', photo: 'test.jpg'}
+        me: {username: 'GarrettCS', name:'Garrett', photo: 'test'}
       }
 
   }
@@ -64,19 +68,20 @@ class App extends Component {
         dst: this.state.currentChat.username,
         content: this.state.text,
       }
-      socket.send(JSON.stringify(aMessage));
+      this.ws.send(JSON.stringify(aMessage));
       this.setState({text: ''});
   }
 
   handleKeyPress(event) {
     if (event.key === 'Enter'){
-          let aMessage = {
-            src: this.state.me.username,
-            dst: this.state.currentChat.username,
-            content: this.state.text,
-          }
-          socket.send(JSON.stringify(aMessage));
-          this.setState({text: ''});
+      event.preventDefault();
+      let aMessage = {
+        src: this.state.me.username,
+        dst: this.state.currentChat.username,
+        content: this.state.text,
+      }
+      this.ws.send(JSON.stringify(aMessage));
+      this.setState({text: ''});
     }
   }
 
@@ -94,11 +99,6 @@ class App extends Component {
     this.setState({text: event.target.value});
   }
 
-  componentDidMount () {
-    const HOST = location.origin.replace(/^http/, 'ws')
-    this.ws = new WebSocket(HOST);
-  }
-  
   render() {
     const friendsList = this.state.friendsList.slice('');
     const list = this.state.friendsList.map((friend, i) => (
