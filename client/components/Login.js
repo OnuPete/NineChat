@@ -2,13 +2,32 @@ import React, { Component } from 'react';
 
 class Login extends Component {
 
-  
+  confirmation (e) {
+    e.preventDefault()
+
+    const data = {
+      'name': this.loginName.value,
+      'password': this.loginPassword.value,
+    }
+
+    // $.ajax({
+    //   type: 'GET',
+    //   url: 'http://localhost:3000/confirmUser',
+    //   data: data
+    // })
+    // .done()
+    // .fail(function(err) {
+    //   console.log('failed to register');
+    // });
+    
+    this.props.jumpToChat()
+  }
 
     render() {
     return ( 
       <div>  
 
-        <form onSubmit={this.props.confirmation} >
+        <form onSubmit={this.confirmation.bind(this)} >
           <label>
             Name:
           <input type="text" ref = {node => this.loginName = node}/>

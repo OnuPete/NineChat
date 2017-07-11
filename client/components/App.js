@@ -125,26 +125,7 @@ jumpToChat () {
   })
 }
 
-confirmation (e) {
-    e.preventDefault()
 
-    const data = {
-      'name': this.inputName.value,
-      'password': this.inputPassword.value,
-    }
-
-    $.ajax({
-      type: 'GET',
-      url: 'http://localhost:3000/confirmUser',
-      data: data
-    })
-    .done()
-    .fail(function(err) {
-      console.log('failed to register');
-    });
-    
-    this.props.jumpToChat()
-  }
 
   sendClick(event) {
       // message is sent to server via web socket,
@@ -196,7 +177,8 @@ confirmation (e) {
           case 1:
             return <Login         nextStep={this.nextStep}
                                   saveValues={this.saveValues}
-                                  confirmation={this.confirmation} />
+                                  confirmation={this.confirmation} 
+                                  jumpToChat={this.jumpToChat}/>
           case 2:
             return <AccountFields nextStep={this.nextStep} 
                                   state = {this.state}
