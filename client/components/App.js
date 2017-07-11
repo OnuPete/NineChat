@@ -6,12 +6,39 @@ import Bottombar from './bottombar';
 import Userlist from './user-list.jsx';
 import UserProfile from './user-profile.jsx';
 
+import Login from './Login';
+import AccountFields from './AccountFields';
+import SurveyFields from './SurveyFields';
+import Confirmation from './Confirmation';
+import Success from './Success';
+
 // const socket = new WebSocket('ws://ec2-34-212-61-95.us-west-2.compute.amazonaws.com:3000/');
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = this.getInitialState()
+    // this.state = this.getInitialState()
+    this.state = {
+			step: 1,
+      name : null,
+      password : null,
+      email: null,
+    //return data from socket.onconnect here, with the return statement below inside the callback for that. this will hold off on populating ANYTHING until that data comes through.
+    //connect ajax to this?
+      messages: [],
+      friendsList: [{username: 'JanelleCS', name: 'Janelle', photo: 'http://images.wisegeek.com/potatoes-against-white-background.jpg'},{username: 'JeffreyCS', name:'Heffe', photo: 'http://www.hdwallpapers.in/walls/purple_flower_4k-wide.jpg'}],
+      currentChat: {username: '', name:'', photo: ''},
+      text: '',
+      me: {username: 'GarrettCS', name:'Garrett', photo: 'test'}
+      }
+    this.nextStep = this.nextStep.bind(this)
+    this.previousStep = this.previousStep.bind(this)
+    this.jumpToChat = this.jumpToChat.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.userClick = this.userClick.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.sendClick = this.sendClick.bind(this)
+    this.saveValues = this.saveValues.bind(this)
   }
 
   componentDidMount(){
@@ -44,17 +71,79 @@ class App extends Component {
     }
   }
 
-  getInitialState() {
-    //return data from socket.onconnect here, with the return statement below inside the callback for that. this will hold off on populating ANYTHING until that data comes through.
-    //connect ajax to this?
-      return {
-        messages: [],
-        friendsList: [{username: 'JanelleCS', name: 'Janelle', photo: 'http://images.wisegeek.com/potatoes-against-white-background.jpg'},{username: 'JeffreyCS', name:'Heffe', photo: 'http://www.hdwallpapers.in/walls/purple_flower_4k-wide.jpg'}],
-        currentChat: {username: '', name:'', photo: ''},
-        text: '',
-        me: {username: 'GarrettCS', name:'Garrett', photo: 'test'}
-      }
+  // getInitialState() {
 
+  //   return {
+	// 		step: 1,
+  //     name : null,
+  //     password : null,
+  //   //return data from socket.onconnect here, with the return statement below inside the callback for that. this will hold off on populating ANYTHING until that data comes through.
+  //   //connect ajax to this?
+  //     messages: [],
+  //     friendsList: [{username: 'JanelleCS', name: 'Janelle', photo: 'http://images.wisegeek.com/potatoes-against-white-background.jpg'},{username: 'JeffreyCS', name:'Heffe', photo: 'http://www.hdwallpapers.in/walls/purple_flower_4k-wide.jpg'}],
+  //     currentChat: {username: '', name:'', photo: ''},
+  //     text: '',
+  //     me: {username: 'GarrettCS', name:'Garrett', photo: 'test'}
+  //     }
+
+
+	// 	}
+
+
+
+
+
+saveValues (data) {
+    // Remember, `fieldValues` is set at the top of this file, we are simply appending
+    // to and overriding keys in `fieldValues` with the `fields` with Object.assign
+    // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+  //   fieldValues = Object.assign({}, fieldValues, fields)
+  // }()
+      this.setState({
+      'name': data.name,
+      'password': data.password,
+      'email': data.email
+    })
+}
+
+nextStep () {
+  this.setState({
+    step : this.state.step + 1
+  })
+}
+
+// Same as nextStep, but decrementing
+previousStep () {
+  this.setState({
+    step : this.state.step - 1
+  })
+}
+
+jumpToChat () {
+  this.setState({
+    step : this.state.step + 3
+  })
+}
+
+confirmation (e) {
+    e.preventDefault()
+
+    const data = {
+      'name': this.inputName.value,
+      'password': this.inputPassword.value,
+    }
+
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:3000/confirmUser',
+      data: data
+    })
+    .done()
+    .fail(function(err) {
+      console.log('failed to register');
+    });
+    
+    this.props.jumpToChat()
   }
 
   sendClick(event) {
@@ -100,32 +189,35 @@ class App extends Component {
   }
 
   render() {
-    const friendsList = this.state.friendsList.slice('');
-    const list = this.state.friendsList.map((friend, i) => (
-      <Userlist key = {i} userClick = {()=> this.userClick(i)} user = {i} username = {friend.username} name = {friend.name} photo = {friend.photo} />
-    ));
-    return (
-          <div id = "main">
-            <div id = "chat">
-              <Topbar/>
-
-                <Chatbox messages = {this.state.messages}/>
 
 
-              <Bottombar handleChange = {(event)=>this.handleChange(event)} sendClick = {()=> this.sendClick()} handleKeyPress={(event)=>this.handleKeyPress(event)} value = {this.state.text}/>
-            </div>
+    
+    switch (this.state.step) {
+          case 1:
+            return <Login         nextStep={this.nextStep}
+                                  saveValues={this.saveValues}
+                                  confirmation={this.confirmation} />
+          case 2:
+            return <AccountFields nextStep={this.nextStep} 
+                                  state = {this.state}
+                                  saveValues={this.saveValues}/>
+          case 3:
+            return <Confirmation  previousStep={this.previousStep}
+                                  submitRegistration={this.submitRegistration} 
+                                  nextStep={this.nextStep} 
+                                  state = {this.state}
+                                  saveValues={this.saveValues}
+                                  currentState = {this.state}/>
+          case 4:
+            return <Success       handleChange={this.handleChange}
+                                  userClick={this.userClick} 
+                                  handleKeyPress={this.handleKeyPress}
+                                  sendClick={this.sendClick}
+                                  state = {this.state}
+                                  saveValues={this.saveValues}
+                                  currentState = {this.state}/>
+        }
 
-            <div id = "users">
-              <UserProfile currentChat = {this.state.currentChat} />
-              <h3>Friends</h3>
-              <div className='user-list'>
-                <ul>
-                  {list}
-                </ul>
-              </div>
-            </div>
-          </div>
-          )
   }
 }
 

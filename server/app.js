@@ -24,6 +24,10 @@ app.get('/', (req, res, next)=>{
 });
 app.get('/users', chatCtrl.getUser);
 app.get('/messages', chatCtrl.get);
+
+app.get('/createUser'), chatCtrl.createNewUser;
+app.post('/confirmUser', chatCtrl.authenticate);
+
 app.post('/users', chatCtrl.addUser);
 
 module.exports = app;

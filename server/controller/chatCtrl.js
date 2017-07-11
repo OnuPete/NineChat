@@ -4,6 +4,32 @@ const User = require('../model/users');
 const bodyParser = require('body-parser')
 
 const chatCtrl = {
+
+  authenticate(req, res) {
+    Message.findOne({name: req.params.name}, function(err, doc) {
+      if (err) {
+        res.json(err);
+      } else {
+        res.send(doc);
+      }
+    })
+  },
+
+  createNewUser(req, res) {
+    let newUser = new Message({
+      name: req.body.name,
+      password: req.body.password,
+      email: req.body.email
+    })
+    newUser.save(function(err, doc) {
+      if (err) {
+        res.send(err)
+      } else {
+        res.send(doc);
+      }
+    })
+  },
+
   addUser(req, res, next){
     console.log('body: ', req.body)
     let username = req.body.username ? req.body.username : "Chris"
@@ -22,6 +48,7 @@ const chatCtrl = {
       next()
     })
   },
+
   addMsg(data, callback) {
     try {
       msg = JSON.parse(data)
@@ -48,6 +75,7 @@ const chatCtrl = {
       callback(err, savedMsg)
     })
   },
+
   getUser(req, res, next){
     User.find({}, (err, result)=>{
       if (err){
@@ -60,11 +88,13 @@ const chatCtrl = {
       }
     })
   },
+
   getMsg(query, callback) {
     Message.find({}, (err, result)=>{
       return callback(err, result)
     })
   },
+
   getLastTen(userid, callback){
     Message.
       find({}).
@@ -75,6 +105,7 @@ const chatCtrl = {
         return callback(err, result)
     })
   },
+
   get(req, res, next){
     let query = {}
     chatCtrl.getMsg(query, (err, messages)=>{
@@ -89,6 +120,7 @@ const chatCtrl = {
       }
     })
   }
+
 };
 
 module.exports = chatCtrl
