@@ -22353,10 +22353,12 @@ var App = function (_Component) {
       this.ws = new WebSocket(HOST);
       console.log('did mount');
       var thisApp = this;
-      console.log(this);
-      this.ws.onopen = function (event) {
+      this.ws.onconnect = function (event) {
         thisApp.updateMessages();
       };
+      // return this.ws.onopen = (event) =>{
+      //   return this.updateMessages();
+      // }
     }
   }, {
     key: 'updateMessages',
@@ -22385,7 +22387,7 @@ var App = function (_Component) {
       //connect ajax to this?
       return {
         messages: [],
-        friendsList: [{ username: 'JanelleCS', name: 'Janelle', photo: 'http://images.wisegeek.com/potatoes-against-white-background.jpg' }, { username: 'JeffreyCS', name: 'Heffe', photo: 'http://www.hdwallpapers.in/walls/purple_flower_4k-wide.jpg' }],
+        friendsList: [{ username: 'JanelleCS', name: 'Janelle', photo: 'test' }, { username: 'JeffreyCS', name: 'Heffe', photo: 'test' }],
         currentChat: { username: '', name: '', photo: '' },
         text: '',
         me: { username: 'GarrettCS', name: 'Garrett', photo: 'test' }
@@ -22742,7 +22744,7 @@ exports = module.exports = __webpack_require__(192)(undefined);
 
 
 // module
-exports.push([module.i, "#main {\n  display: flex; }\n\n#users {\n  width: 200px;\n  border: 1px solid black; }\n\n#user-profile {\n  height: 200px;\n  border-bottom: 1px solid black; }\n\n#chatbox {\n  height: 400px;\n  width: 600px;\n  border: 1px solid black;\n  overflow: scroll; }\n\n#topbar {\n  display: flex;\n  justify-content: flex-start;\n  height: 75px;\n  width: 600px;\n  border: 1px solid black; }\n\n#nineChat {\n  text-align: center;\n  margin-top: 15px;\n  width: 500px;\n  display: inline-block; }\n\n#imgbox {\n  width: 75px;\n  border: 1px solid black;\n  display: inline-block; }\n\n#sixtynine {\n  width: 75px;\n  height: 75px; }\n\n#bottombar {\n  border: 1px solid black;\n  display: flex;\n  width: 600px;\n  height: 50px; }\n\n#sendButton {\n  text-align: center;\n  font-size: 28px;\n  margin-left: 7px;\n  margin-top: 8px; }\n\n#sendButton:hover {\n  cursor: pointer; }\n\n#textbox {\n  width: 560px;\n  line-height: 1.5;\n  font-size: 16px; }\n\n.user-pic {\n  width: 100px;\n  height: auto; }\n\n.msgname {\n  display: block;\n  font-size: 12px;\n  color: grey;\n  margin: 2px 0px 3px 5px; }\n\n.msg {\n  margin-left: 2px; }\n", ""]);
+exports.push([module.i, "#main {\n  display: flex; }\n\n#users {\n  width: 200px;\n  border: 1px solid black; }\n\n#user-profile {\n  height: 200px;\n  border-bottom: 1px solid black; }\n\n#chatbox {\n  height: 400px;\n  width: 600px;\n  border: 1px solid black;\n  overflow: scroll; }\n\n#topbar {\n  display: flex;\n  justify-content: flex-start;\n  height: 75px;\n  width: 600px;\n  border: 1px solid black; }\n\n#nineChat {\n  text-align: center;\n  margin-top: 15px;\n  width: 500px;\n  display: inline-block; }\n\n#imgbox {\n  width: 75px;\n  border: 1px solid black;\n  display: inline-block; }\n\n#sixtynine {\n  width: 75px;\n  height: 75px; }\n\n#bottombar {\n  border: 1px solid black;\n  display: flex;\n  width: 600px;\n  height: 50px; }\n\n#sendButton {\n  text-align: center;\n  font-size: 28px;\n  margin-left: 7px;\n  margin-top: 8px; }\n\n#sendButton:hover {\n  cursor: pointer; }\n\n#textbox {\n  width: 560px;\n  line-height: 1.5;\n  font-size: 16px; }\n\n.msgname {\n  display: block;\n  font-size: 12px;\n  color: grey;\n  margin: 2px 0px 3px 5px; }\n\n.msg {\n  margin-left: 2px; }\n", ""]);
 
 // exports
 

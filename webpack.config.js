@@ -1,38 +1,42 @@
-const path = require('path');
-const webpack = require('webpack');
+var webpack = require('webpack');
+var path = require('path');
 
-module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  devServer: {
-    contentBase: './'
-  },
-  entry: [
-    './client/index.js',
-    './client/styles.css',
-  ],
+var BUILD_DIR = path.resolve(__dirname, './build');
+var APP_DIR = path.resolve(__dirname, './client');
 
-  output: {
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/build/',
-    filename: 'bundle.js'
-  },
+const config = {
+   entry: {
+     main: APP_DIR + '/index.js'
+   },
+   output: {
+     filename: 'bundle.js',
+     path: BUILD_DIR,
+   },
+   module: {
+    rules: [
+     {
+       test: /(\.css|.scss)$/,
+       use: [{
+           loader: "style-loader" // creates style nodes from JS strings
+       }, {
+           loader: "css-loader" // translates CSS into CommonJS
+       }, {
+           loader: "sass-loader" // compiles Sass to CSS
+       }]
+     },
+     {
+       test: /\.(jsx|js)?$/,
+       use: [{
+         loader: "babel-loader",
+         options: {
+           cacheDirectory: true,
+           presets: ['react', 'es2015']
+         }
+       }]
+     }
+    ],
 
-  module: {
-    loaders: [
-      {
-        test: /(\.js|\.jsx)$/,
-        loader: 'babel-loader',
-        exclude: /node-modules/,
-        query: {
-          presets: ['es2015', 'react']
-        },
-        include: __dirname,
-      },
-      {
-        test: /(\.css|.scss)$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-    ]
-  },
+  }
+};
 
-}
+module.exports = config;
