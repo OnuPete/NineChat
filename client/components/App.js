@@ -59,7 +59,6 @@ jumpToChat () {
           case 1:
             return <Login         nextStep={this.nextStep}
                                   saveValues={this.saveValues}
-                                  confirmation={this.confirmation} 
                                   jumpToChat={this.jumpToChat}/>
           case 2:
             return <AccountFields nextStep={this.nextStep} 
@@ -71,7 +70,7 @@ jumpToChat () {
                                   saveValues={this.saveValues}
                                   currentState = {this.state}/>
           case 4:
-            return <Success />
+            return <Success       currentState = {this.state}/>
         }
 
   }
