@@ -22392,7 +22392,6 @@ var App = function (_Component) {
         case 1:
           return _react2.default.createElement(_Login2.default, { nextStep: this.nextStep,
             saveValues: this.saveValues,
-            confirmation: this.confirmation,
             jumpToChat: this.jumpToChat });
         case 2:
           return _react2.default.createElement(_AccountFields2.default, { nextStep: this.nextStep,
@@ -22404,7 +22403,7 @@ var App = function (_Component) {
             saveValues: this.saveValues,
             currentState: this.state });
         case 4:
-          return _react2.default.createElement(_Success2.default, null);
+          return _react2.default.createElement(_Success2.default, { currentState: this.state });
       }
     }
   }]);
@@ -22974,7 +22973,8 @@ var Success = function (_Component) {
         friendsList: [{ username: 'JanelleCS', name: 'Janelle', photo: 'http://images.wisegeek.com/potatoes-against-white-background.jpg' }, { username: 'JeffreyCS', name: 'Heffe', photo: 'http://www.hdwallpapers.in/walls/purple_flower_4k-wide.jpg' }],
         currentChat: { username: '', name: '', photo: '' },
         text: '',
-        me: { username: 'GarrettCS', name: 'Garrett', photo: 'test' }
+        me: { username: 'GarrettCS', name: 'Garrett', photo: 'test' },
+        stateForConfirmation: this.props.currentState
       };
     }
   }, {
@@ -22986,7 +22986,7 @@ var Success = function (_Component) {
       // react rerenders
       //textbox value is reset to null
       var aMessage = {
-        src: this.state.me.username,
+        src: this.state.stateForConfirmation.name,
         dst: this.state.currentChat.username,
         content: this.state.text
       };
@@ -22999,7 +22999,7 @@ var Success = function (_Component) {
       if (event.key === 'Enter') {
         event.preventDefault();
         var aMessage = {
-          src: this.state.me.username,
+          src: this.state.stateForConfirmation.name,
           dst: this.state.currentChat.username,
           content: this.state.text
         };

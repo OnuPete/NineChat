@@ -52,7 +52,8 @@ class Success extends Component {
         friendsList: [{username: 'JanelleCS', name: 'Janelle', photo: 'http://images.wisegeek.com/potatoes-against-white-background.jpg'},{username: 'JeffreyCS', name:'Heffe', photo: 'http://www.hdwallpapers.in/walls/purple_flower_4k-wide.jpg'}],
         currentChat: {username: '', name:'', photo: ''},
         text: '',
-        me: {username: 'GarrettCS', name:'Garrett', photo: 'test'}
+        me: {username: 'GarrettCS', name:'Garrett', photo: 'test'},
+        stateForConfirmation: this.props.currentState
       }
 
   }
@@ -64,7 +65,7 @@ class Success extends Component {
       // react rerenders
       //textbox value is reset to null
       let aMessage = {
-        src: this.state.me.username,
+        src: this.state.stateForConfirmation.name,
         dst: this.state.currentChat.username,
         content: this.state.text,
       }
@@ -76,7 +77,7 @@ class Success extends Component {
     if (event.key === 'Enter'){
       event.preventDefault();
       let aMessage = {
-        src: this.state.me.username,
+        src: this.state.stateForConfirmation.name,
         dst: this.state.currentChat.username,
         content: this.state.text,
       }
