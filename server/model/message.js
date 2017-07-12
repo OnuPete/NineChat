@@ -10,18 +10,6 @@ let messagesSchema = mongoose.Schema({
     dst: String,
     message: String,
     timestamp: { type: Date, default: Date.now },
-    name : {
-      type: String,
-      unique : true,
-      required : true,
-      dropDups: true
-    },
-    email : String,
-    password : {
-      type: String,
-      required : true,
-    },
-    age : String,
 });
 
 messages = mongoose.model('Messages', messagesSchema)

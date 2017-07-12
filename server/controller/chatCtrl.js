@@ -16,19 +16,22 @@ const chatCtrl = {
   },
 
   createNewUser(req, res) {
-    let newUser = new Message({
+    console.log("im a new user")
+    let newUser = new User({
       name: req.body.name,
       password: req.body.password,
       email: req.body.email
     })
     newUser.save(function(err, doc) {
       if (err) {
-        res.send(err)
+        res.json(err)
       } else {
-        res.send(doc);
+        res.json(doc);
       }
     })
   },
+
+  
 
   addUser(req, res, next){
     console.log('body: ', req.body)

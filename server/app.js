@@ -7,7 +7,9 @@ const router = express.Router();
 const chatCtrl = require('./controller/chatCtrl');
 
 // app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 
 app.use(express.static(path.join(__dirname, '../build')));
 app.use(express.static(path.join(__dirname, '../client')));
@@ -25,7 +27,7 @@ app.get('/', (req, res, next)=>{
 app.get('/users', chatCtrl.getUser);
 app.get('/messages', chatCtrl.get);
 
-app.get('/createUser'), chatCtrl.createNewUser;
+app.post('/createUser', chatCtrl.createNewUser);
 app.post('/confirmUser', chatCtrl.authenticate);
 
 app.post('/users', chatCtrl.addUser);
