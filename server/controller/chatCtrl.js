@@ -1,7 +1,7 @@
 const Message = require('../model/message');
 // const messageSchema = require('../model/message');
 const User = require('../model/users');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 const chatCtrl = {
 
@@ -16,12 +16,18 @@ const chatCtrl = {
   },
 
   createNewUser(req, res) {
-    console.log("im a new user")
+    console.log("im a new user");
+
     let newUser = new User({
       name: req.body.name,
       password: req.body.password,
-      email: req.body.email
+      email: req.body.email,
+      age: req.body.age,
+      gender: req.body.gender,
+      location: req.body.location,
+      profileImgLink: req.body.photo
     })
+
     newUser.save(function(err, doc) {
       if (err) {
         res.json(err)
@@ -31,7 +37,7 @@ const chatCtrl = {
     })
   },
 
-  
+
 
   addUser(req, res, next){
     console.log('body: ', req.body)

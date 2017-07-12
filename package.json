@@ -4,7 +4,8 @@
   "description": "DM chat app based on the websocket protocol",
   "main": "main.js",
   "scripts": {
-    "test": "test",
+    "test": "mocha --compilers babel-core/register ./test/*test.js",
+    "test:watch": "npm test -- -w",
     "start": "nodemon server/server.js",
     "webpack": "./node_modules/.bin/webpack -w",
     "webdev": "webpack-dev-server"
@@ -49,9 +50,13 @@
     "babel-preset-stage-2": "^6.24.1",
     "chai": "^4.0.2",
     "css-loader": "^0.28.4",
+    "enzyme": "^2.9.1",
+    "jsdom": "^11.1.0",
     "mocha": "^3.4.2",
     "node-sass": "^4.5.3",
+    "react-addons-test-utils": "^15.6.0",
     "sass-loader": "^6.0.6",
+    "sinon": "^2.3.7",
     "style-loader": "^0.18.2",
     "webpack-dev-server": "^2.5.1"
   }

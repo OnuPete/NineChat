@@ -1164,15 +1164,6 @@ module.exports = ReactComponentTreeHook;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-module.exports = __webpack_require__(17);
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2016-present, Facebook, Inc.
  * All rights reserved.
@@ -1197,6 +1188,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = { debugTool: debugTool };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(17);
 
 /***/ }),
 /* 10 */
@@ -2688,7 +2688,7 @@ module.exports = reactProdInvariant;
 
 
 var ReactRef = __webpack_require__(107);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 
 var warning = __webpack_require__(2);
 
@@ -5247,7 +5247,7 @@ module.exports = getEventModifierState;
 var DOMLazyTree = __webpack_require__(20);
 var Danger = __webpack_require__(118);
 var ReactDOMComponentTree = __webpack_require__(5);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 
 var createMicrosoftUnsafeLocalFunction = __webpack_require__(41);
 var setInnerHTML = __webpack_require__(30);
@@ -5926,7 +5926,7 @@ var _prodInvariant = __webpack_require__(3);
 
 var ReactCurrentOwner = __webpack_require__(11);
 var ReactInstanceMap = __webpack_require__(24);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 var ReactUpdates = __webpack_require__(12);
 
 var invariant = __webpack_require__(1);
@@ -8004,7 +8004,7 @@ module.exports = CSSProperty;
 
 var DOMProperty = __webpack_require__(14);
 var ReactDOMComponentTree = __webpack_require__(5);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 
 var quoteAttributeValueForBrowser = __webpack_require__(132);
 var warning = __webpack_require__(2);
@@ -9222,7 +9222,7 @@ var ReactDOMContainerInfo = __webpack_require__(174);
 var ReactDOMFeatureFlags = __webpack_require__(175);
 var ReactFeatureFlags = __webpack_require__(62);
 var ReactInstanceMap = __webpack_require__(24);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 var ReactMarkupChecksum = __webpack_require__(176);
 var ReactReconciler = __webpack_require__(19);
 var ReactUpdateQueue = __webpack_require__(47);
@@ -9779,7 +9779,7 @@ module.exports = getHostComponentFromComposite;
 "use strict";
 
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -12219,7 +12219,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactInstrumentation = __webpack_require__(9);
+  var ReactInstrumentation = __webpack_require__(8);
   var ReactDOMUnknownPropertyHook = __webpack_require__(181);
   var ReactDOMNullInputValuePropHook = __webpack_require__(182);
   var ReactDOMInvalidARIAHook = __webpack_require__(183);
@@ -14869,7 +14869,7 @@ var ReactDOMInput = __webpack_require__(135);
 var ReactDOMOption = __webpack_require__(136);
 var ReactDOMSelect = __webpack_require__(71);
 var ReactDOMTextarea = __webpack_require__(137);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 var ReactMultiChild = __webpack_require__(138);
 var ReactServerRenderingTransaction = __webpack_require__(147);
 
@@ -15896,7 +15896,7 @@ module.exports = AutoFocusUtils;
 
 var CSSProperty = __webpack_require__(68);
 var ExecutionEnvironment = __webpack_require__(6);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 
 var camelizeStyleName = __webpack_require__(126);
 var dangerousStyleValue = __webpack_require__(128);
@@ -17164,7 +17164,7 @@ var _prodInvariant = __webpack_require__(3);
 
 var ReactComponentEnvironment = __webpack_require__(43);
 var ReactInstanceMap = __webpack_require__(24);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 
 var ReactCurrentOwner = __webpack_require__(11);
 var ReactReconciler = __webpack_require__(19);
@@ -17781,7 +17781,7 @@ var ReactComponentEnvironment = __webpack_require__(43);
 var ReactCurrentOwner = __webpack_require__(11);
 var ReactErrorUtils = __webpack_require__(35);
 var ReactInstanceMap = __webpack_require__(24);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 var ReactNodeTypes = __webpack_require__(73);
 var ReactReconciler = __webpack_require__(19);
 
@@ -18990,7 +18990,7 @@ var _assign = __webpack_require__(4);
 
 var PooledClass = __webpack_require__(16);
 var Transaction = __webpack_require__(28);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 var ReactServerUpdateQueue = __webpack_require__(148);
 
 /**
@@ -19923,7 +19923,7 @@ var CallbackQueue = __webpack_require__(61);
 var PooledClass = __webpack_require__(16);
 var ReactBrowserEventEmitter = __webpack_require__(32);
 var ReactInputSelection = __webpack_require__(78);
-var ReactInstrumentation = __webpack_require__(9);
+var ReactInstrumentation = __webpack_require__(8);
 var Transaction = __webpack_require__(28);
 var ReactUpdateQueue = __webpack_require__(47);
 
@@ -22297,7 +22297,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -22309,10 +22309,6 @@ var _AccountFields = __webpack_require__(186);
 
 var _AccountFields2 = _interopRequireDefault(_AccountFields);
 
-var _SurveyFields = __webpack_require__(187);
-
-var _SurveyFields2 = _interopRequireDefault(_SurveyFields);
-
 var _Confirmation = __webpack_require__(188);
 
 var _Confirmation2 = _interopRequireDefault(_Confirmation);
@@ -22322,6 +22318,8 @@ var _Success = __webpack_require__(189);
 var _Success2 = _interopRequireDefault(_Success);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -22345,7 +22343,11 @@ var App = function (_Component) {
       step: 1,
       name: null,
       password: null,
-      email: null
+      email: null,
+      age: null,
+      gender: null,
+      location: null,
+      photo: null
     };
     _this.nextStep = _this.nextStep.bind(_this);
     _this.previousStep = _this.previousStep.bind(_this);
@@ -22360,7 +22362,11 @@ var App = function (_Component) {
       this.setState({
         'name': data.name,
         'password': data.password,
-        'email': data.email
+        'email': data.email,
+        'age': data.age,
+        'gender': data.gender,
+        'location': data.location,
+        'photo': data.photo
       });
     }
   }, {
@@ -22387,7 +22393,6 @@ var App = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-
       switch (this.state.step) {
         case 1:
           return _react2.default.createElement(_Login2.default, { nextStep: this.nextStep,
@@ -22397,12 +22402,14 @@ var App = function (_Component) {
           return _react2.default.createElement(_AccountFields2.default, { nextStep: this.nextStep,
             saveValues: this.saveValues });
         case 3:
-          return _react2.default.createElement(_Confirmation2.default, { previousStep: this.previousStep,
+          return _react2.default.createElement(_Confirmation2.default, _defineProperty({ previousStep: this.previousStep,
             submitRegistration: this.submitRegistration,
             nextStep: this.nextStep,
             saveValues: this.saveValues,
-            currentState: this.state });
+            currentState: this.state
+          }, 'saveValues', this.saveValues));
         case 4:
+          console.log(this.state.photo);
           return _react2.default.createElement(_Success2.default, { currentState: this.state });
       }
     }
@@ -22426,7 +22433,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -22532,9 +22539,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _profileLinks = __webpack_require__(187);
+
+var _profileLinks2 = _interopRequireDefault(_profileLinks);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22557,11 +22568,16 @@ var AccountFields = function (_Component) {
     key: 'saveAndContinue',
     value: function saveAndContinue(e) {
       e.preventDefault();
+      var link = Math.floor(Math.random() * _profileLinks2.default.length);
 
       var data = {
         'name': this.name.value,
         'password': this.password.value,
-        'email': this.email.value
+        'email': this.email.value,
+        'age': this.age.value,
+        'gender': this.gender.value,
+        'location': this.location.value,
+        'photo': _profileLinks2.default[link]
       };
 
       this.props.saveValues(data);
@@ -22582,35 +22598,51 @@ var AccountFields = function (_Component) {
           _react2.default.createElement(
             'label',
             null,
-            'Name:',
+            'Name: ',
             _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
                 return _this2.name = node;
               } })
           ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
           _react2.default.createElement(
             'label',
             null,
-            'Password:',
+            'Password: ',
             _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
                 return _this2.password = node;
               } })
           ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
           _react2.default.createElement(
             'label',
             null,
-            'Email:',
+            'Email: ',
             _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
                 return _this2.email = node;
               } })
           ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Age: ',
+            _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
+                return _this2.age = node;
+              } })
+          ),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Gender: ',
+            _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
+                return _this2.gender = node;
+              } })
+          ),
+          _react2.default.createElement(
+            'label',
+            null,
+            'Location: ',
+            _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
+                return _this2.location = node;
+              } })
+          ),
           _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
         )
       );
@@ -22630,126 +22662,11 @@ exports.default = AccountFields;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
+var links = ['https://media.giphy.com/media/tTutsU63rnHC8/giphy.gif', 'https://media.giphy.com/media/Jlys8jzFoI8ne/giphy.gif', 'https://media.giphy.com/media/5xtDarpNKCozWZZO61a/giphy.gif', 'https://media.giphy.com/media/KGI4gmWK9yPsI/giphy.gif', 'https://media.giphy.com/media/FaTrieSsFHcaI/giphy.gif', 'https://media.giphy.com/media/t4iLeNiLtG5hK/giphy.gif', 'https://media.giphy.com/media/wPFs60amEv3YA/giphy.gif', 'https://media.giphy.com/media/Z32XWltSBUpW0/giphy.gif', 'https://media.giphy.com/media/10TjYv7tytTjtm/giphy.gif', 'https://media.giphy.com/media/IUu7swWWXfeyk/giphy.gif', 'https://media.giphy.com/media/hPVKyisRsZAKk/giphy.gif', 'https://media.giphy.com/media/129Yiur12UfxNm/giphy.gif', 'https://media.giphy.com/media/4P2f56rmCL4VW/giphy.gif', 'https://media.giphy.com/media/JYvhRPVLYiE1i/giphy.gif', 'https://media.giphy.com/media/12czu2KXaMRiRa/giphy.gif', 'https://media.giphy.com/media/yoJC2wqc7suVTag7i8/giphy.gif'];
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(8);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SurveyFields = function (_Component) {
-  _inherits(SurveyFields, _Component);
-
-  function SurveyFields(props) {
-    _classCallCheck(this, SurveyFields);
-
-    return _possibleConstructorReturn(this, (SurveyFields.__proto__ || Object.getPrototypeOf(SurveyFields)).call(this, props));
-  }
-
-  _createClass(SurveyFields, [{
-    key: 'renderOptions',
-    value: function renderOptions(type, name, value, index) {
-      var isChecked = function () {
-        if (type == 'radio') return value == this.props.fieldValues[name];
-
-        if (type == 'checkbox') return this.props.fieldValues[name].indexOf(value) >= 0;
-
-        return false;
-      }.bind(this);
-
-      return _react2.default.createElement(
-        'label',
-        { key: index },
-        _react2.default.createElement('input', { type: type, name: name, value: value, defaultChecked: isChecked() }),
-        ' ',
-        value
-      );
-    }
-  }, {
-    key: 'nextStep',
-    value: function nextStep() {
-      // Get values via querySelector
-      var age = document.querySelector('input[name="age"]:checked');
-      var colors = document.querySelectorAll('input[name="colors"]');
-
-      var data = {
-        age: getRadioOrCheckboxValue(age),
-        colors: getRadioOrCheckboxValue(colors)
-      };
-
-      this.props.saveValues(data);
-      this.props.nextStep();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'h2',
-          null,
-          'Survey Question'
-        ),
-        _react2.default.createElement(
-          'ul',
-          { className: 'form-fields' },
-          _react2.default.createElement(
-            'li',
-            { className: 'radio' },
-            _react2.default.createElement(
-              'span',
-              { className: 'label' },
-              'Age'
-            ),
-            ['18-26', '27-38', '39-50', '51-62'].map(this.renderOptions.bind(this, 'radio', 'age'))
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: 'checkbox' },
-            _react2.default.createElement(
-              'span',
-              { className: 'label' },
-              'Favorite Colors'
-            ),
-            ['Blue', 'Red', 'Orange', 'Green'].map(this.renderOptions.bind(this, 'checkbox', 'colors'))
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: 'form-footer' },
-            _react2.default.createElement(
-              'button',
-              { className: 'btn -default pull-left', onClick: this.props.previousStep },
-              'Back'
-            ),
-            _react2.default.createElement(
-              'button',
-              { className: 'btn -primary pull-right', onClick: this.nextStep },
-              'Save & Continue'
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return SurveyFields;
-}(_react.Component);
-
-exports.default = SurveyFields;
-
-// var React                   = require('react')
-// var getRadioOrCheckboxValue = require('../lib/radiobox-value')
+exports.default = links;
 
 /***/ }),
 /* 188 */
@@ -22764,7 +22681,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -22795,7 +22712,11 @@ var Confirmation = function (_Component) {
       var data = {
         'name': this.state.stateForConfirmation.name,
         'password': this.state.stateForConfirmation.password,
-        'email': this.state.stateForConfirmation.email
+        'email': this.state.stateForConfirmation.email,
+        'age': this.state.stateForConfirmation.age,
+        'gender': this.state.stateForConfirmation.gender,
+        'location': this.state.stateForConfirmation.location,
+        'photo': this.state.stateForConfirmation.photo
       };
       console.log('data.name', data.name);
 
@@ -22824,34 +22745,64 @@ var Confirmation = function (_Component) {
             'Confirm Registration'
           ),
           _react2.default.createElement(
-            'ul',
+            'li',
             null,
             _react2.default.createElement(
-              'li',
+              'b',
               null,
-              _react2.default.createElement(
-                'b',
-                null,
-                'Name:'
-              ),
-              ' ',
-              this.state.stateForConfirmation.name
-            )
+              'Name:'
+            ),
+            ' ',
+            this.state.stateForConfirmation.name
           ),
           _react2.default.createElement(
-            'ul',
+            'li',
             null,
             _react2.default.createElement(
-              'li',
+              'b',
               null,
-              _react2.default.createElement(
-                'b',
-                null,
-                'Email:'
-              ),
-              ' ',
-              this.state.stateForConfirmation.email
-            )
+              'Email:'
+            ),
+            ' ',
+            this.state.stateForConfirmation.email
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'b',
+              null,
+              'Age:'
+            ),
+            ' ',
+            this.state.stateForConfirmation.age
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'b',
+              null,
+              'Gender:'
+            ),
+            ' ',
+            this.state.stateForConfirmation.gender
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(
+              'b',
+              null,
+              'Location:'
+            ),
+            ' ',
+            this.state.stateForConfirmation.location
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement('img', { src: this.state.stateForConfirmation.photo, alt: '' })
           ),
           _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
         ),
@@ -22882,7 +22833,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -22930,8 +22881,31 @@ var Success = function (_Component) {
   }
 
   _createClass(Success, [{
+    key: 'getInitialState',
+    value: function getInitialState() {
+      //return data from socket.onconnect here, with the return statement below inside the callback for that. this will hold off on populating ANYTHING until that data comes through.
+      //connect ajax to this?
+      console.log(this.props.currentState);
+      return {
+        messages: [],
+        friendsList: [],
+        currentChat: {
+          name: this.props.currentState.name,
+          age: this.props.currentState.age,
+          gender: this.props.currentState.gender,
+          location: this.props.currentState.location,
+          photo: this.props.currentState.photo
+        },
+        text: '',
+        me: { name: this.props.currentState.name, photo: this.props.currentState.photo },
+        stateForConfirmation: this.props.currentState
+      };
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       // before executing the set state below, componentDidMount needs to reach out to
       // server via our websocket and pull down the list of messages between user and user[0].
       var HOST = location.origin.replace(/^http/, 'ws');
@@ -22940,42 +22914,36 @@ var Success = function (_Component) {
       var thisApp = this;
       console.log(this);
       this.ws.onopen = function (event) {
-        thisApp.updateMessages();
+        _this2.sendStart();
       };
+    }
+  }, {
+    key: 'sendStart',
+    value: function sendStart() {
+      this.ws.send(JSON.stringify({
+        event: 'start'
+      }));
     }
   }, {
     key: 'updateMessages',
     value: function updateMessages() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var currchat = this.state.friendsList[0];
       this.ws.onmessage = function (event) {
         console.log(event);
         var msgs = JSON.parse(event.data);
         msgs = Array.isArray(msgs) ? msgs.reverse() : msgs;
-        var oldmsgs = _this2.state.messages.slice();
+        var oldmsgs = _this3.state.messages.slice();
         msgs = oldmsgs.concat(msgs);
-        document.cookie = "username=" + _this2.state.me.username;
-        document.cookie = "chatBro=" + currchat.username;
-        _this2.setState({
-          currentChat: currchat,
+        _this3.setState({
           messages: msgs
         });
       };
     }
   }, {
-    key: 'getInitialState',
-    value: function getInitialState() {
-      //return data from socket.onconnect here, with the return statement below inside the callback for that. this will hold off on populating ANYTHING until that data comes through.
-      //connect ajax to this?
-      return {
-        messages: [],
-        friendsList: [{ username: 'JanelleCS', name: 'Janelle', photo: 'http://images.wisegeek.com/potatoes-against-white-background.jpg' }, { username: 'JeffreyCS', name: 'Heffe', photo: 'http://www.hdwallpapers.in/walls/purple_flower_4k-wide.jpg' }],
-        currentChat: { username: '', name: '', photo: '' },
-        text: '',
-        me: { username: 'GarrettCS', name: 'Garrett', photo: 'test' },
-        stateForConfirmation: this.props.currentState
-      };
+    key: 'getUsers',
+    value: function getUsers() {
+      this.ws.sendmessage;
     }
   }, {
     key: 'sendClick',
@@ -22987,7 +22955,6 @@ var Success = function (_Component) {
       //textbox value is reset to null
       var aMessage = {
         src: this.state.stateForConfirmation.name,
-        dst: this.state.currentChat.username,
         content: this.state.text
       };
       this.ws.send(JSON.stringify(aMessage));
@@ -23000,23 +22967,11 @@ var Success = function (_Component) {
         event.preventDefault();
         var aMessage = {
           src: this.state.stateForConfirmation.name,
-          dst: this.state.currentChat.username,
           content: this.state.text
         };
         this.ws.send(JSON.stringify(aMessage));
         this.setState({ text: '' });
       }
-    }
-  }, {
-    key: 'userClick',
-    value: function userClick(user) {
-      // update messages to reflect current user, this will require a pull from server
-      // to server: send my ID, friendsID, should recieve back messages between me and friend, update state.messages to reflect the new messages.
-      var chatter = this.state.friendsList[user];
-      document.cookie = "chatBro=" + chatter.username;
-      this.setState({
-        currentChat: chatter
-      });
     }
   }, {
     key: 'handleChange',
@@ -23026,12 +22981,12 @@ var Success = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var friendsList = this.state.friendsList.slice('');
       var list = this.state.friendsList.map(function (friend, i) {
         return _react2.default.createElement(_userList2.default, { key: i, userClick: function userClick() {
-            return _this3.userClick(i);
+            return _this4.userClick(i);
           }, user: i, username: friend.username, name: friend.name, photo: friend.photo });
       });
       return _react2.default.createElement(
@@ -23043,12 +22998,15 @@ var Success = function (_Component) {
           _react2.default.createElement(_topbar2.default, null),
           _react2.default.createElement(_chatbox2.default, { messages: this.state.messages }),
           _react2.default.createElement(_bottombar2.default, { handleChange: function handleChange(event) {
-              return _this3.handleChange(event);
-            }, sendClick: function sendClick() {
-              return _this3.sendClick();
-            }, handleKeyPress: function handleKeyPress(event) {
-              return _this3.handleKeyPress(event);
-            }, value: this.state.text })
+              return _this4.handleChange(event);
+            },
+            sendClick: function sendClick() {
+              return _this4.sendClick();
+            },
+            handleKeyPress: function handleKeyPress(event) {
+              return _this4.handleKeyPress(event);
+            },
+            value: this.state.text })
         ),
         _react2.default.createElement(
           'div',
@@ -23089,7 +23047,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -23141,7 +23099,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -23177,24 +23135,27 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Bottombar(props) {
-
   return _react2.default.createElement(
     "div",
     { id: "bottombar" },
     _react2.default.createElement(
       "textarea",
-      { id: "textbox", value: props.value, onChange: function onChange(event) {
+      { id: "textbox",
+        value: props.value,
+        onChange: function onChange(event) {
           return props.handleChange(event);
-        }, onKeyPress: function onKeyPress(event) {
+        },
+        onKeyPress: function onKeyPress(event) {
           return props.handleKeyPress(event);
-        }, placeholder: "message..." },
+        },
+        placeholder: "message..." },
       props.value
     ),
     _react2.default.createElement(
@@ -23217,32 +23178,32 @@ exports.default = Bottombar;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var UserList = function UserList(props) {
-    var userClick = props.userClick,
-        username = props.username,
-        user = props.user,
-        name = props.name,
-        photo = props.photo;
+  var userClick = props.userClick,
+      username = props.username,
+      user = props.user,
+      name = props.name,
+      photo = props.photo;
 
 
-    return _react2.default.createElement(
-        'li',
-        { onClick: function onClick() {
-                return userClick();
-            } },
-        _react2.default.createElement('img', { src: photo, className: 'user-pic' }),
-        name,
-        username
-    );
+  return _react2.default.createElement(
+    'li',
+    { onClick: function onClick() {
+        return userClick();
+      } },
+    _react2.default.createElement('img', { src: photo, className: 'user-pic' }),
+    name,
+    username
+  );
 };
 
 exports.default = UserList;
@@ -23258,7 +23219,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _react = __webpack_require__(8);
+var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -23268,20 +23229,26 @@ var UserProfile = function UserProfile(props) {
     return _react2.default.createElement(
         'div',
         { id: 'user-profile' },
-        _react2.default.createElement(
-            'div',
-            { id: 'user-pic' },
-            props.currentChat.photo
-        ),
-        _react2.default.createElement(
-            'div',
-            { id: 'user-username' },
-            props.currentChat.username
-        ),
+        _react2.default.createElement('img', { className: 'user-pic', src: props.currentChat.photo }),
         _react2.default.createElement(
             'div',
             { id: 'user-name' },
             props.currentChat.name
+        ),
+        _react2.default.createElement(
+            'div',
+            { id: 'user-age' },
+            props.currentChat.age
+        ),
+        _react2.default.createElement(
+            'div',
+            { id: 'user-gender' },
+            props.currentChat.gender
+        ),
+        _react2.default.createElement(
+            'div',
+            { id: 'user-location' },
+            props.currentChat.location
         )
     );
 };

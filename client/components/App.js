@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 
 import Login from './Login';
 import AccountFields from './AccountFields';
-import SurveyFields from './SurveyFields';
 import Confirmation from './Confirmation';
 import Success from './Success';
 
@@ -18,20 +17,29 @@ class App extends Component {
       name : null,
       password : null,
       email: null,
-      }
-    this.nextStep = this.nextStep.bind(this)
-    this.previousStep = this.previousStep.bind(this)
-    this.jumpToChat = this.jumpToChat.bind(this)
-    this.saveValues = this.saveValues.bind(this)
+      age: null,
+      gender: null,
+      location: null,
+      photo: null
+    };
+    this.nextStep = this.nextStep.bind(this);
+    this.previousStep = this.previousStep.bind(this);
+    this.jumpToChat = this.jumpToChat.bind(this);
+    this.saveValues = this.saveValues.bind(this);
   }
 
 saveValues (data) {
-      this.setState({
-      'name': data.name,
-      'password': data.password,
-      'email': data.email
-    })
+  this.setState({
+    'name': data.name,
+    'password': data.password,
+    'email': data.email,
+    'age': data.age,
+    'gender': data.gender,
+    'location': data.location,
+    'photo': data.photo
+  });
 }
+
 
 nextStep () {
   this.setState({
@@ -52,25 +60,24 @@ jumpToChat () {
 }
 
   render() {
-
-
-    
     switch (this.state.step) {
           case 1:
             return <Login         nextStep={this.nextStep}
                                   saveValues={this.saveValues}
-                                  jumpToChat={this.jumpToChat}/>
+                                  jumpToChat={this.jumpToChat} />
           case 2:
-            return <AccountFields nextStep={this.nextStep} 
-                                  saveValues={this.saveValues}/>
+            return <AccountFields nextStep={this.nextStep}
+                                  saveValues={this.saveValues} />
           case 3:
             return <Confirmation  previousStep={this.previousStep}
-                                  submitRegistration={this.submitRegistration} 
-                                  nextStep={this.nextStep} 
+                                  submitRegistration={this.submitRegistration}
+                                  nextStep={this.nextStep}
                                   saveValues={this.saveValues}
-                                  currentState = {this.state}/>
+                                  currentState={this.state}
+                                  saveValues={this.saveValues}/>
           case 4:
-            return <Success       currentState = {this.state}/>
+            console.log(this.state.photo);
+            return <Success       currentState={this.state} />
         }
 
   }

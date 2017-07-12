@@ -1,5 +1,5 @@
 const links = [
-    'https://media.giphy.com/media/tTutsU63rnHC8/giphy.gif', 
+    'https://media.giphy.com/media/tTutsU63rnHC8/giphy.gif',
     'https://media.giphy.com/media/Jlys8jzFoI8ne/giphy.gif',
     'https://media.giphy.com/media/5xtDarpNKCozWZZO61a/giphy.gif',
     'https://media.giphy.com/media/KGI4gmWK9yPsI/giphy.gif',

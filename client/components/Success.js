@@ -14,6 +14,26 @@ class Success extends Component {
     this.state = this.getInitialState()
   }
 
+  getInitialState() {
+    //return data from socket.onconnect here, with the return statement below inside the callback for that. this will hold off on populating ANYTHING until that data comes through.
+    //connect ajax to this?
+    console.log(this.props.currentState);
+    return {
+      messages: [],
+      friendsList: [],
+      currentChat: {
+        name:this.props.currentState.name,
+        age:this.props.currentState.age,
+        gender: this.props.currentState.gender,
+        location: this.props.currentState.location,
+        photo: this.props.currentState.photo
+      },
+      text: '',
+      me: {name:this.props.currentState.name, photo: this.props.currentState.photo},
+      stateForConfirmation: this.props.currentState
+    }
+  }
+
   componentDidMount(){
     // before executing the set state below, componentDidMount needs to reach out to
     // server via our websocket and pull down the list of messages between user and user[0].
@@ -23,39 +43,31 @@ class Success extends Component {
     const thisApp = this;
     console.log(this);
     this.ws.onopen = (event) => {
-      thisApp.updateMessages();
+      this.sendStart();
     }
   }
 
+  sendStart() {
+    this.ws.send(JSON.stringify({
+      event: 'start'
+    }))
+  }
+
   updateMessages() {
-    const currchat = this.state.friendsList[0];
     this.ws.onmessage = (event) =>{
       console.log(event);
       let msgs = JSON.parse(event.data);
       msgs = Array.isArray(msgs) ? msgs.reverse() : msgs;
       const oldmsgs = this.state.messages.slice();
       msgs = oldmsgs.concat(msgs);
-      document.cookie = "username=" + this.state.me.username;
-      document.cookie = "chatBro=" + currchat.username;
       this.setState({
-        currentChat: currchat,
         messages: msgs
       });
     }
   }
 
-  getInitialState() {
-    //return data from socket.onconnect here, with the return statement below inside the callback for that. this will hold off on populating ANYTHING until that data comes through.
-    //connect ajax to this?
-      return {
-        messages: [],
-        friendsList: [{username: 'JanelleCS', name: 'Janelle', photo: 'http://images.wisegeek.com/potatoes-against-white-background.jpg'},{username: 'JeffreyCS', name:'Heffe', photo: 'http://www.hdwallpapers.in/walls/purple_flower_4k-wide.jpg'}],
-        currentChat: {username: '', name:'', photo: ''},
-        text: '',
-        me: {username: 'GarrettCS', name:'Garrett', photo: 'test'},
-        stateForConfirmation: this.props.currentState
-      }
-
+  getUsers() {
+    this.ws.sendmessage
   }
 
   sendClick(event) {
@@ -66,7 +78,6 @@ class Success extends Component {
       //textbox value is reset to null
       let aMessage = {
         src: this.state.stateForConfirmation.name,
-        dst: this.state.currentChat.username,
         content: this.state.text,
       }
       this.ws.send(JSON.stringify(aMessage));
@@ -78,7 +89,6 @@ class Success extends Component {
       event.preventDefault();
       let aMessage = {
         src: this.state.stateForConfirmation.name,
-        dst: this.state.currentChat.username,
         content: this.state.text,
       }
       this.ws.send(JSON.stringify(aMessage));
@@ -86,15 +96,6 @@ class Success extends Component {
     }
   }
 
-  userClick(user) {
-    // update messages to reflect current user, this will require a pull from server
-    // to server: send my ID, friendsID, should recieve back messages between me and friend, update state.messages to reflect the new messages.
-    const chatter = this.state.friendsList[user];
-    document.cookie = "chatBro=" + chatter.username;
-    this.setState({
-      currentChat : chatter
-    });
-  }
 
   handleChange(event){
     this.setState({text: event.target.value});
@@ -108,16 +109,18 @@ class Success extends Component {
     return (
           <div id = "main">
             <div id = "chat">
-              <Topbar/>
+              <Topbar />
 
-                <Chatbox messages = {this.state.messages}/>
+              <Chatbox messages={this.state.messages}/>
 
-
-              <Bottombar handleChange = {(event)=>this.handleChange(event)} sendClick = {()=> this.sendClick()} handleKeyPress={(event)=>this.handleKeyPress(event)} value = {this.state.text}/>
+              <Bottombar handleChange={(event) => this.handleChange(event)}
+                         sendClick={() => this.sendClick()}
+                         handleKeyPress={(event) => this.handleKeyPress(event)}
+                         value={this.state.text} />
             </div>
 
             <div id = "users">
-              <UserProfile currentChat = {this.state.currentChat} />
+              <UserProfile currentChat={this.state.currentChat} />
               <h3>Friends</h3>
               <div className='user-list'>
                 <ul>

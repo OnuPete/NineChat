@@ -12,6 +12,10 @@ submitRegistration (event) {
       'name': this.state.stateForConfirmation.name,
       'password': this.state.stateForConfirmation.password,
       'email': this.state.stateForConfirmation.email,
+      'age': this.state.stateForConfirmation.age,
+      'gender': this.state.stateForConfirmation.gender,
+      'location': this.state.stateForConfirmation.location,
+      'photo': this.state.stateForConfirmation.photo
     }
     console.log('data.name',data.name)
 
@@ -26,26 +30,25 @@ submitRegistration (event) {
     });
 
     this.props.nextStep()
-    
+
 }
 
   render (){
     return (
       <div>
-
         <form onSubmit={this.submitRegistration.bind(this)}>
-        <h2>Confirm Registration</h2>
-        <ul>
+          <h2>Confirm Registration</h2>
           <li><b>Name:</b> {this.state.stateForConfirmation.name}</li>
-        </ul>
-        <ul>
           <li><b>Email:</b> {this.state.stateForConfirmation.email}</li>
-        </ul>
-            <input type="submit" value="Submit" />
+          <li><b>Age:</b> {this.state.stateForConfirmation.age}</li>
+          <li><b>Gender:</b> {this.state.stateForConfirmation.gender}</li>
+          <li><b>Location:</b> {this.state.stateForConfirmation.location}</li>
+          <li><img src={this.state.stateForConfirmation.photo} alt=""/></li>
+          <input type="submit" value="Submit" />
         </form>
 
       <button onClick={this.props.previousStep}>Back to Login</button>
-        
+
       </div>
     )
   }
@@ -53,8 +56,3 @@ submitRegistration (event) {
 }
 
 export default Confirmation
-
-
-
-
-

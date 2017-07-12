@@ -6,17 +6,13 @@ mongoose.connection.once('open', () => {
 });
 
 let usersSchema = mongoose.Schema({
-    // user_id: String,
-    name: {
-      type: String,
-    },
-    password : {
-      type: String,
-    },
-    email : String
-
-    // convs: [{conv_id: Number}],
-    // fList: [{username: String}]
+  name: String,
+  password : String,
+  email : String,
+  age: Number,
+  gender: String,
+  location: String,
+  profileImgLink: String
 });
 
 users = mongoose.model('Users', usersSchema)
