@@ -7,14 +7,16 @@ mongoose.connection.once('open', () => {
 
 let usersSchema = mongoose.Schema({
     // user_id: String,
-    username: {
+    name: {
       type: String,
-      unique : true,
-      required : true,
-      dropDups: true
     },
-    convs: [{conv_id: Number}],
-    fList: [{username: String}]
+    password : {
+      type: String,
+    },
+    email : String
+
+    // convs: [{conv_id: Number}],
+    // fList: [{username: String}]
 });
 
 users = mongoose.model('Users', usersSchema)

@@ -2,47 +2,6 @@ import React, { Component } from 'react';
 
 
 class AccountFields extends Component {
-//   nextSteps (e) {
-//     e.preventDefault()
-// let self = this;
-//     // Get values via this.refs
-//     const data = {
-//       name     : self.refs.name.getDOMNode().value,
-//       password : self.refs.password.getDOMNode().value,
-//       email    : self.refs.email.getDOMNode().value,
-//     }
-
-//     console.log(data.name)
-
-//     this.props.nextStep()
-//   }
-
-//  render () {
-//     return (
-//       <div>
-//         <h2>Account Details</h2>
-//         <ul>
-//           <li>
-//             <label>Name</label>
-//             <input type="text" ref="name"  />
-//           </li>
-//           <li>
-//             <label>Password</label>
-//             <input type="password" ref="password"  />
-//           </li>
-//           <li>
-//             <label>Email</label>
-//             <input type="email" ref="email"  />
-//           </li>
-//           <li >
-//             <button  onClick={this.nextSteps}>Save and Continue</button>
-//           </li>
-//         </ul>
-//       </div>
-//     )
-//   }
-
-
 
   saveAndContinue (e) {
     e.preventDefault()
@@ -54,13 +13,6 @@ class AccountFields extends Component {
       'email': this.email.value,
     }
 
-
-
-
-    // this.setState({
-    //   'name': this.name.value,
-    //   'password': this.password.value
-    // })
     this.props.saveValues(data)
 
     this.props.nextStep()

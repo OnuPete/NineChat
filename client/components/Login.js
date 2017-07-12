@@ -10,6 +10,7 @@ class Login extends Component {
       'password': this.loginPassword.value,
     }
 
+    this.props.saveValues(data)
     // $.ajax({
     //   type: 'GET',
     //   url: 'http://localhost:3000/confirmUser',
