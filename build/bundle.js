@@ -22708,6 +22708,8 @@ var Confirmation = function (_Component) {
   _createClass(Confirmation, [{
     key: 'submitRegistration',
     value: function submitRegistration(event) {
+      var _this2 = this;
+
       event.preventDefault();
       var data = {
         'name': this.state.stateForConfirmation.name,
@@ -22724,11 +22726,11 @@ var Confirmation = function (_Component) {
         type: 'POST',
         url: 'http://localhost:3000/createUser',
         data: data
-      }).done().fail(function (err) {
+      }).done(function () {
+        return _this2.props.nextStep();
+      }).fail(function (err) {
         console.log('failed to register');
       });
-
-      this.props.nextStep();
     }
   }, {
     key: 'render',
@@ -22745,64 +22747,68 @@ var Confirmation = function (_Component) {
             'Confirm Registration'
           ),
           _react2.default.createElement(
-            'li',
-            null,
+            'ul',
+            { id: 'confirmed' },
             _react2.default.createElement(
-              'b',
+              'li',
               null,
-              'Name:'
+              _react2.default.createElement(
+                'b',
+                null,
+                'Name:'
+              ),
+              ' ',
+              this.state.stateForConfirmation.name
             ),
-            ' ',
-            this.state.stateForConfirmation.name
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
             _react2.default.createElement(
-              'b',
+              'li',
               null,
-              'Email:'
+              _react2.default.createElement(
+                'b',
+                null,
+                'Email:'
+              ),
+              ' ',
+              this.state.stateForConfirmation.email
             ),
-            ' ',
-            this.state.stateForConfirmation.email
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
             _react2.default.createElement(
-              'b',
+              'li',
               null,
-              'Age:'
+              _react2.default.createElement(
+                'b',
+                null,
+                'Age:'
+              ),
+              ' ',
+              this.state.stateForConfirmation.age
             ),
-            ' ',
-            this.state.stateForConfirmation.age
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
             _react2.default.createElement(
-              'b',
+              'li',
               null,
-              'Gender:'
+              _react2.default.createElement(
+                'b',
+                null,
+                'Gender:'
+              ),
+              ' ',
+              this.state.stateForConfirmation.gender
             ),
-            ' ',
-            this.state.stateForConfirmation.gender
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
             _react2.default.createElement(
-              'b',
+              'li',
               null,
-              'Location:'
+              _react2.default.createElement(
+                'b',
+                null,
+                'Location:'
+              ),
+              ' ',
+              this.state.stateForConfirmation.location
             ),
-            ' ',
-            this.state.stateForConfirmation.location
-          ),
-          _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement('img', { src: this.state.stateForConfirmation.photo, alt: '' })
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement('img', { src: this.state.stateForConfirmation.photo, alt: '' })
+            )
           ),
           _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
         ),
@@ -22885,10 +22891,9 @@ var Success = function (_Component) {
     value: function getInitialState() {
       //return data from socket.onconnect here, with the return statement below inside the callback for that. this will hold off on populating ANYTHING until that data comes through.
       //connect ajax to this?
-      console.log(this.props.currentState);
       return {
         messages: [],
-        friendsList: [],
+        friendsList: {},
         currentChat: {
           name: this.props.currentState.name,
           age: this.props.currentState.age,
@@ -22910,40 +22915,49 @@ var Success = function (_Component) {
       // server via our websocket and pull down the list of messages between user and user[0].
       var HOST = location.origin.replace(/^http/, 'ws');
       this.ws = new WebSocket(HOST);
-      console.log('did mount');
       var thisApp = this;
-      console.log(this);
       this.ws.onopen = function (event) {
         _this2.sendStart();
+      };
+      this.ws.onmessage = function (event) {
+        var message = JSON.parse(event.data);
+
+        // Successfully connected and get all messages
+        // as well as yourself Back
+        if (message.event === 'successfullyConnected') {
+          thisApp.updateMessages(message.messages);
+          thisApp.updateUsers(message.connectList);
+        }
+        if (message.event === 'sentNewMessage') {
+          thisApp.updateMessages(message.messages);
+        }
+        if (message.event === 'userDiconnected' || message.event === 'newUserConnected') {
+          thisApp.updateUsers(message.connectList);
+        }
       };
     }
   }, {
     key: 'sendStart',
     value: function sendStart() {
       this.ws.send(JSON.stringify({
-        event: 'start'
+        event: 'start',
+        body: this.state.currentChat
       }));
     }
   }, {
     key: 'updateMessages',
-    value: function updateMessages() {
-      var _this3 = this;
-
-      this.ws.onmessage = function (event) {
-        console.log(event);
-        var msgs = JSON.parse(event.data);
-        msgs = Array.isArray(msgs) ? msgs.reverse() : msgs;
-        var oldmsgs = _this3.state.messages.slice();
-        msgs = oldmsgs.concat(msgs);
-        _this3.setState({
-          messages: msgs
-        });
-      };
+    value: function updateMessages(msgs) {
+      msgs = Array.isArray(msgs) ? msgs.reverse() : msgs;
+      var oldmsgs = this.state.messages.slice();
+      msgs = oldmsgs.concat(msgs);
+      this.setState({
+        messages: msgs
+      });
     }
   }, {
-    key: 'getUsers',
-    value: function getUsers() {
-      this.ws.sendmessage;
+    key: 'updateUsers',
+    value: function updateUsers(users) {
+      this.setState({ friendsList: users });
     }
   }, {
     key: 'sendClick',
@@ -22966,8 +22980,11 @@ var Success = function (_Component) {
       if (event.key === 'Enter') {
         event.preventDefault();
         var aMessage = {
-          src: this.state.stateForConfirmation.name,
-          content: this.state.text
+          event: 'sendMessage',
+          message: {
+            src: this.state.stateForConfirmation.name,
+            content: this.state.text
+          }
         };
         this.ws.send(JSON.stringify(aMessage));
         this.setState({ text: '' });
@@ -22979,15 +22996,29 @@ var Success = function (_Component) {
       this.setState({ text: event.target.value });
     }
   }, {
+    key: 'userClick',
+    value: function userClick(user) {
+      // update messages to reflect current user, this will require a pull from server
+      // to server: send my ID, friendsID, should recieve back messages between me and friend, update state.messages to reflect the new messages.
+      var chatter = this.state.friendsList[user];
+      this.setState({
+        currentChat: chatter
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
-      var friendsList = this.state.friendsList.slice('');
-      var list = this.state.friendsList.map(function (friend, i) {
-        return _react2.default.createElement(_userList2.default, { key: i, userClick: function userClick() {
-            return _this4.userClick(i);
-          }, user: i, username: friend.username, name: friend.name, photo: friend.photo });
+      var friendsIDs = Object.keys(this.state.friendsList);
+      var list = friendsIDs.map(function (id) {
+        return _react2.default.createElement(_userList2.default, { key: id,
+          userClick: function userClick() {
+            return _this3.userClick(id);
+          },
+          user: id,
+          name: _this3.state.friendsList[id].name,
+          photo: _this3.state.friendsList[id].photo });
       });
       return _react2.default.createElement(
         'div',
@@ -22998,13 +23029,13 @@ var Success = function (_Component) {
           _react2.default.createElement(_topbar2.default, null),
           _react2.default.createElement(_chatbox2.default, { messages: this.state.messages }),
           _react2.default.createElement(_bottombar2.default, { handleChange: function handleChange(event) {
-              return _this4.handleChange(event);
+              return _this3.handleChange(event);
             },
             sendClick: function sendClick() {
-              return _this4.sendClick();
+              return _this3.sendClick();
             },
             handleKeyPress: function handleKeyPress(event) {
-              return _this4.handleKeyPress(event);
+              return _this3.handleKeyPress(event);
             },
             value: this.state.text })
         ),
@@ -23112,12 +23143,12 @@ function Chatbox(props) {
     _react2.default.createElement(
       "div",
       { id: "imgbox" },
-      _react2.default.createElement("img", { id: "sixtynine", src: 'https://image.spreadshirtmedia.net/image-server/v1/compositions/T428A1PA866PT1X39Y0D130286121S7/views/1,width=300,height=300,appearanceId=1,backgroundColor=E8E8E8/team-69-flexfit-baseball-cap.jpg' })
+      _react2.default.createElement("img", { id: "logoimg", src: "https://media.giphy.com/media/GvroqKh5QDk8o/giphy.gif" })
     ),
     _react2.default.createElement(
       "h1",
       { id: "ninechat" },
-      "NineChat"
+      "RZR Client"
     )
   );
 }
@@ -23188,21 +23219,11 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var UserList = function UserList(props) {
-  var userClick = props.userClick,
-      username = props.username,
-      user = props.user,
-      name = props.name,
-      photo = props.photo;
-
-
   return _react2.default.createElement(
     'li',
-    { onClick: function onClick() {
-        return userClick();
-      } },
-    _react2.default.createElement('img', { src: photo, className: 'user-pic' }),
-    name,
-    username
+    { onClick: props.userClick },
+    _react2.default.createElement('img', { src: props.photo, className: 'user-pic' }),
+    props.name
   );
 };
 
@@ -23233,21 +23254,25 @@ var UserProfile = function UserProfile(props) {
         _react2.default.createElement(
             'div',
             { id: 'user-name' },
+            'Name: ',
             props.currentChat.name
         ),
         _react2.default.createElement(
             'div',
             { id: 'user-age' },
+            'Age: ',
             props.currentChat.age
         ),
         _react2.default.createElement(
             'div',
             { id: 'user-gender' },
+            'Gender: ',
             props.currentChat.gender
         ),
         _react2.default.createElement(
             'div',
             { id: 'user-location' },
+            'Location: ',
             props.currentChat.location
         )
     );
@@ -23295,7 +23320,7 @@ exports = module.exports = __webpack_require__(197)(undefined);
 
 
 // module
-exports.push([module.i, "#main {\n  display: flex; }\n\n#users {\n  width: 200px;\n  border: 1px solid black; }\n\n#user-profile {\n  height: 200px;\n  border-bottom: 1px solid black; }\n\n#chatbox {\n  height: 400px;\n  width: 600px;\n  border: 1px solid black;\n  overflow: scroll; }\n\n#topbar {\n  display: flex;\n  justify-content: flex-start;\n  height: 75px;\n  width: 600px;\n  border: 1px solid black; }\n\n#nineChat {\n  text-align: center;\n  margin-top: 15px;\n  width: 500px;\n  display: inline-block; }\n\n#imgbox {\n  width: 75px;\n  border: 1px solid black;\n  display: inline-block; }\n\n#sixtynine {\n  width: 75px;\n  height: 75px; }\n\n#bottombar {\n  border: 1px solid black;\n  display: flex;\n  width: 600px;\n  height: 50px; }\n\n#sendButton {\n  text-align: center;\n  font-size: 28px;\n  margin-left: 7px;\n  margin-top: 8px; }\n\n#sendButton:hover {\n  cursor: pointer; }\n\n#textbox {\n  width: 560px;\n  line-height: 1.5;\n  font-size: 16px; }\n\n.user-pic {\n  width: 100px;\n  height: auto; }\n\n.msgname {\n  display: block;\n  font-size: 12px;\n  color: grey;\n  margin: 2px 0px 3px 5px; }\n\n.msg {\n  margin-left: 2px; }\n", ""]);
+exports.push([module.i, "#main {\n  display: flex; }\n\n#users {\n  width: 200px;\n  border: 1px solid black; }\n\n#user-profile {\n  height: 200px;\n  border-bottom: 1px solid black;\n  font-size: 16px;\n  font-family: \"Helvetica\", Arial;\n  text-align: center;\n  padding: 10px; }\n\n#user-pic {\n  margin: 5px; }\n\n#chatbox {\n  height: 400px;\n  width: 600px;\n  border: 1px solid black;\n  overflow: scroll; }\n\n#topbar {\n  display: flex;\n  justify-content: flex-start;\n  height: 75px;\n  width: 600px;\n  border: 1px solid black; }\n\n#nineChat {\n  text-align: center;\n  margin-top: 15px;\n  width: 500px;\n  display: inline-block; }\n\n#imgbox {\n  width: 75px;\n  border: 1px solid black;\n  height: auto;\n  display: inline-block; }\n\n#confirmed > li > img {\n  width: 100px; }\n\n#imgbox > img {\n  width: 100%;\n  height: 100%; }\n\n#bottombar {\n  border: 1px solid black;\n  display: flex;\n  width: 600px;\n  height: 50px; }\n\n#sendButton {\n  text-align: center;\n  font-size: 28px;\n  margin-left: 7px;\n  margin-top: 8px; }\n\n#sendButton:hover {\n  cursor: pointer; }\n\n#textbox {\n  width: 560px;\n  line-height: 1.5;\n  font-size: 16px; }\n\n.user-pic {\n  width: 100px;\n  height: auto; }\n\n.msgname {\n  display: block;\n  font-size: 12px;\n  color: grey;\n  margin: 2px 0px 3px 5px; }\n\n.msg {\n  margin-left: 2px; }\n", ""]);
 
 // exports
 

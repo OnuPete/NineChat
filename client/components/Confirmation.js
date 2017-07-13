@@ -8,28 +8,26 @@ class Confirmation extends Component {
 
 submitRegistration (event) {
   event.preventDefault();
-    const data = {
-      'name': this.state.stateForConfirmation.name,
-      'password': this.state.stateForConfirmation.password,
-      'email': this.state.stateForConfirmation.email,
-      'age': this.state.stateForConfirmation.age,
-      'gender': this.state.stateForConfirmation.gender,
-      'location': this.state.stateForConfirmation.location,
-      'photo': this.state.stateForConfirmation.photo
-    }
-    console.log('data.name',data.name)
+  const data = {
+    'name': this.state.stateForConfirmation.name,
+    'password': this.state.stateForConfirmation.password,
+    'email': this.state.stateForConfirmation.email,
+    'age': this.state.stateForConfirmation.age,
+    'gender': this.state.stateForConfirmation.gender,
+    'location': this.state.stateForConfirmation.location,
+    'photo': this.state.stateForConfirmation.photo
+  }
+  console.log('data.name',data.name)
 
-    $.ajax({
-      type: 'POST',
-      url: 'http://localhost:3000/createUser',
-      data: data
-    })
-    .done()
-    .fail(function(err) {
-      console.log('failed to register');
-    });
-
-    this.props.nextStep()
+  $.ajax({
+    type: 'POST',
+    url: 'http://localhost:3000/createUser',
+    data: data
+  })
+  .done(() => this.props.nextStep())
+  .fail(function(err) {
+    console.log('failed to register');
+  });
 
 }
 
@@ -38,12 +36,14 @@ submitRegistration (event) {
       <div>
         <form onSubmit={this.submitRegistration.bind(this)}>
           <h2>Confirm Registration</h2>
+          <ul id="confirmed">
           <li><b>Name:</b> {this.state.stateForConfirmation.name}</li>
           <li><b>Email:</b> {this.state.stateForConfirmation.email}</li>
           <li><b>Age:</b> {this.state.stateForConfirmation.age}</li>
           <li><b>Gender:</b> {this.state.stateForConfirmation.gender}</li>
           <li><b>Location:</b> {this.state.stateForConfirmation.location}</li>
           <li><img src={this.state.stateForConfirmation.photo} alt=""/></li>
+          </ul>
           <input type="submit" value="Submit" />
         </form>
 

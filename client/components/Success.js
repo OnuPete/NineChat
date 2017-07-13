@@ -11,16 +11,15 @@ import UserProfile from './user-profile.jsx';
 class Success extends Component {
   constructor(props) {
     super(props);
-    this.state = this.getInitialState()
+    this.state = this.getInitialState();
   }
 
   getInitialState() {
     //return data from socket.onconnect here, with the return statement below inside the callback for that. this will hold off on populating ANYTHING until that data comes through.
     //connect ajax to this?
-    console.log(this.props.currentState);
     return {
       messages: [],
-      friendsList: [],
+      friendsList: {},
       currentChat: {
         name:this.props.currentState.name,
         age:this.props.currentState.age,
@@ -39,35 +38,46 @@ class Success extends Component {
     // server via our websocket and pull down the list of messages between user and user[0].
     const HOST = location.origin.replace(/^http/, 'ws')
     this.ws = new WebSocket(HOST);
-    console.log('did mount');
     const thisApp = this;
-    console.log(this);
     this.ws.onopen = (event) => {
       this.sendStart();
+    }
+    this.ws.onmessage = function (event) {
+      const message = JSON.parse(event.data);
+
+      // Successfully connected and get all messages
+      // as well as yourself Back
+      if (message.event === 'successfullyConnected') {
+        thisApp.updateMessages(message.messages);
+        thisApp.updateUsers(message.connectList);
+      }
+      if (message.event === 'sentNewMessage') {
+        thisApp.updateMessages(message.messages);
+      }
+      if (message.event === 'userDiconnected' || message.event ==='newUserConnected') {
+        thisApp.updateUsers(message.connectList);
+      }
     }
   }
 
   sendStart() {
     this.ws.send(JSON.stringify({
-      event: 'start'
+      event: 'start',
+      body: this.state.currentChat
     }))
   }
 
-  updateMessages() {
-    this.ws.onmessage = (event) =>{
-      console.log(event);
-      let msgs = JSON.parse(event.data);
-      msgs = Array.isArray(msgs) ? msgs.reverse() : msgs;
-      const oldmsgs = this.state.messages.slice();
-      msgs = oldmsgs.concat(msgs);
-      this.setState({
-        messages: msgs
-      });
-    }
+  updateMessages(msgs) {
+    msgs = Array.isArray(msgs) ? msgs.reverse() : msgs;
+    const oldmsgs = this.state.messages.slice();
+    msgs = oldmsgs.concat(msgs);
+    this.setState({
+      messages: msgs
+    });
   }
 
-  getUsers() {
-    this.ws.sendmessage
+  updateUsers(users) {
+    this.setState({friendsList: users});
   }
 
   sendClick(event) {
@@ -88,8 +98,11 @@ class Success extends Component {
     if (event.key === 'Enter'){
       event.preventDefault();
       let aMessage = {
-        src: this.state.stateForConfirmation.name,
-        content: this.state.text,
+        event: 'sendMessage',
+        message: {
+          src: this.state.stateForConfirmation.name,
+          content: this.state.text
+        }
       }
       this.ws.send(JSON.stringify(aMessage));
       this.setState({text: ''});
@@ -101,10 +114,23 @@ class Success extends Component {
     this.setState({text: event.target.value});
   }
 
+  userClick(user) {
+    // update messages to reflect current user, this will require a pull from server
+    // to server: send my ID, friendsID, should recieve back messages between me and friend, update state.messages to reflect the new messages.
+    const chatter = this.state.friendsList[user];
+    this.setState({
+      currentChat : chatter
+    });
+  }
+
   render() {
-    const friendsList = this.state.friendsList.slice('');
-    const list = this.state.friendsList.map((friend, i) => (
-      <Userlist key = {i} userClick = {()=> this.userClick(i)} user = {i} username = {friend.username} name = {friend.name} photo = {friend.photo} />
+    const friendsIDs = Object.keys(this.state.friendsList);
+    const list = friendsIDs.map((id) => (
+      <Userlist key={id}
+                userClick = {()=> this.userClick(id)}
+                user={id}
+                name={this.state.friendsList[id].name}
+                photo={this.state.friendsList[id].photo} />
     ));
     return (
           <div id = "main">

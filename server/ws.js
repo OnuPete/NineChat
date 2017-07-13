@@ -8,51 +8,72 @@ const chatCtrl = require('./controller/chatCtrl');
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server: server, clientTracking: true });
 let connectList = {};
+let curid = 0;
 
 wss.on('connection', function(ws, req) {
   console.log('websocket connected');
+  let id;
+  let name;
+  let age;
+  let gender;
+  let location;
+  let photo;
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+    delete connectList[id];
+
+    wss.clients.forEach((client) => {
+      client.send(JSON.stringify({
+        event: 'userDiconnected',
+        connectList,
+        id
+      }));
+    });
+  });
+
   ws.on('message', function(message) {
     const data = JSON.parse(message);
-    console.log('in message', data);
-  })
-})
 
-// const sendToAll = data => {
-//   Object.keys(connectList).forEach(id =>{
-//     connectList[id].ws.send(data)
-//   })
-// }
-//
-// const findConnections = username =>{
-//   for (key in connectList) {
-//     if (connectList.key.username === username){
-//       return connectList.key.ws
-//     }
-//   }
-//   return undefined
-// }
-//
-// wss.on('connection', function connection(ws, req) {
-//   console.log('websocket connected')
-//   let id = Object.keys(connectList).length
-//   let username = req.headers.username ? req.headers.username : "Garret"
-//   connectList[id] = {id: id, ws: ws, username: username}
-//
-//   chatCtrl.getLastTen(username, (err, messages)=>{
-//     ws.send(JSON.stringify(messages))
-//   })
-//   ws.on('message', function incoming(data) {
-//     console.log('received: %s', data);
-//     chatCtrl.addMsg(data, (err, savedMsg)=>{
-//       sendToAll(JSON.stringify(savedMsg))
-//     })
-//   });
-//   ws.on('close', ()=>{
-//     delete connectList[id]
-//     console.log('closed %s', id)
-//   })
-// });
-//
-//
+    // When we start connection, add user to connected list and
+    // display messages
+    if (data.event === 'start') {
+      id = curid++;
+      name = data.body.name;
+      age = data.body.age;
+      gender = data.body.gender;
+      location = data.body.location;
+      photo = data.body.photo;
+      connectList[id] = {id, name, age, gender, location, photo};
+      chatCtrl.getLastTen(name, (err, messages)=>{
+        const wsdata = JSON.stringify({
+          event: 'successfullyConnected',
+          connectList,
+          messages
+        });
+        ws.send(wsdata);
+      });
+
+      wss.clients.forEach((client) => {
+        client.send(JSON.stringify({
+          event: 'newUserConnected',
+          connectList,
+        }));
+      });
+    }
+
+    if (data.event === 'sendMessage') {
+      console.log('received: %s', data);
+      chatCtrl.addMsg(JSON.stringify(data.message), (err, savedMsg)=>{
+        Object.keys(connectList).forEach(id => {
+          ws.send(JSON.stringify({
+            event: 'sentNewMessage',
+            messages: savedMsg
+          }));
+        });
+      });
+    }
+  });
+})
 
 module.exports = server;

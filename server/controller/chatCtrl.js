@@ -17,16 +17,16 @@ const chatCtrl = {
 
   createNewUser(req, res) {
     console.log("im a new user");
-
+    const user = req.body;
     let newUser = new User({
-      name: req.body.name,
-      password: req.body.password,
-      email: req.body.email,
-      age: req.body.age,
-      gender: req.body.gender,
-      location: req.body.location,
-      profileImgLink: req.body.photo
-    })
+      name: user.name,
+      password: user.password,
+      email: user.email,
+      age: user.age,
+      gender: user.gender,
+      location: user.location,
+      profileImgLink: user.photo
+    });
 
     newUser.save(function(err, doc) {
       if (err) {
@@ -40,7 +40,6 @@ const chatCtrl = {
 
 
   addUser(req, res, next){
-    console.log('body: ', req.body)
     let username = req.body.username ? req.body.username : "Chris"
     let user = new User({
       username: username,
@@ -61,15 +60,10 @@ const chatCtrl = {
   addMsg(data, callback) {
     try {
       msg = JSON.parse(data)
-      if ('src' in msg &&
-          'dst' in msg &&
-          'content' in msg){
-        msgDoc = new Message({
-          src: msg.src,
-          dst: msg.dst,
-          message: msg.content
-        })
-      } else {throw "msg data lacks key"}
+      msgDoc = new Message({
+        src: msg.src,
+        message: msg.content
+      })
     } catch (err) {
       msgDoc = new Message({
         src: "Garret",
@@ -80,7 +74,6 @@ const chatCtrl = {
     }
     msgDoc.save((err, savedMsg)=>{
       if (err) return console.error(err)
-      console.log('doc saved:', savedMsg)
       callback(err, savedMsg)
     })
   },
@@ -104,7 +97,7 @@ const chatCtrl = {
     })
   },
 
-  getLastTen(userid, callback){
+  getLastTen(userid, callback) {
     Message.
       find({}).
       sort({timestamp: -1}).

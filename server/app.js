@@ -7,7 +7,7 @@ const router = express.Router();
 const chatCtrl = require('./controller/chatCtrl');
 
 // app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
@@ -18,9 +18,7 @@ app.use('/', router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../index.html'));
 }));
 app.get('/', (req, res, next)=>{
-  console.log();
   console.log('cookies from GET req', req.cookies);
-  console.log();
   res.redirect('/messages');
   next();
 });
